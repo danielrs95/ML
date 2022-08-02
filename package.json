@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/danielrs95/ML/issues"
   },
-  "homepage": "https://github.com/danielrs95/ML#readme"
+  "homepage": "https://github.com/danielrs95/ML#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
 }
