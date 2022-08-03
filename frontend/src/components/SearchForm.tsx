@@ -28,6 +28,7 @@ const SearchForm = () => {
         placeholder="Nunca dejes de buscar"
         size="large"
         onSearch={searchHandler}
+        onClick={() => undefined}
       />
     </Link>
   );

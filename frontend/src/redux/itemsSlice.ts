@@ -2,17 +2,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ItemsState {
-  items: [];
+  items: object;
 }
 
 const initialState: ItemsState = {
-  items: [],
+  items: {},
 };
 
 export const itemSlice = createSlice({
   name: "items",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteItems() {
+      return {
+        items: {},
+      };
+    },
+  },
   extraReducers(builder) {
     builder.addCase(
       searchItems.fulfilled,
@@ -34,5 +40,7 @@ export const searchItems = createAsyncThunk(
     return responseJson;
   }
 );
+
+export const { deleteItems } = itemSlice.actions;
 
 export default itemSlice.reducer;
