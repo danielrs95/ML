@@ -12,7 +12,7 @@ const ItemPage = () => {
   const { id } = useParams();
 
   // * ========== State variables ==========
-  // const items = useAppSelector((state: any) => state.items.items);
+  const item = useAppSelector((state: any) => state.items.items.item);
   const itemsStatus = useAppSelector((state: any) => state.items.status);
 
   // * ========== UseEffects ==========
@@ -32,17 +32,28 @@ const ItemPage = () => {
         </Col>
       </Row>
       <Row justify="center" align="top" style={{ height: "100vh" }}>
-        <Col>
+        <Col span={20}>
           {itemsStatus === "loading" ? (
             <LoadingSpin />
           ) : (
-            <div>
-              <div>
-                <Image />
-                <div>Titulo y otras coasas</div>
+            item && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex" }}>
+                  <Image src={item.picture} width={680} />
+                  <div>
+                    <h3
+                      style={{ fontSize: "14px" }}
+                    >{`${item.condition} - ${item.sold_quantity}`}</h3>
+                    <h1>{item.title}</h1>
+                    <h1>${item.price.amount}</h1>
+                  </div>
+                </div>
+                <div>
+                  <h1>Descripción del producto</h1>
+                  <p>{item.description}</p>
+                </div>
               </div>
-              <div>Descripcion</div>
-            </div>
+            )
           )}
         </Col>
       </Row>

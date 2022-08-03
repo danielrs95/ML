@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Layout>
       <Header style={{ background: "#FFe600" }}>
-        <Row justify="center" align="middle" style={{ height: "100%" }}>
+        <Row justify="space-around" align="middle" style={{ height: "100%" }}>
           <Link to="/">
             <Col span={2}>
               <img src={logo} alt="logo" />
