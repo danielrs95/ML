@@ -1,34 +1,40 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ItemsState {
   items: object;
+  status: string;
 }
 
 const initialState: ItemsState = {
   items: {},
+  status: "idle",
 };
 
 export const itemSlice = createSlice({
   name: "items",
   initialState,
   reducers: {
-    deleteItems() {
+    deleteItems(state) {
       return {
+        ...state,
         items: {},
       };
     },
   },
   extraReducers(builder) {
-    builder.addCase(
-      searchItems.fulfilled,
-      (state, action: PayloadAction<any>) => {
+    builder
+      .addCase(searchItems.pending, (state: any) => {
+        state.status = "loading";
+      })
+      .addCase(searchItems.fulfilled, (state, action: PayloadAction<any>) => {
         return {
           ...state,
           items: action.payload,
+          status: "success",
         };
-      }
-    );
+      });
   },
 });
 
