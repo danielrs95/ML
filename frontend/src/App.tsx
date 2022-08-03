@@ -1,6 +1,6 @@
 import { Col, Layout, Row } from "antd";
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import logo from "./components/Logo_ML.png";
 import LandingPage from "./pages/LandingPage";
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { RootState } from "./store";
 import SearchPage from "./pages/SearchPage";
 import { deleteItems } from "./redux/itemsSlice";
+import ItemPage from "./pages/ItemPage";
 
 const App = () => {
   // * Variables
@@ -16,9 +17,10 @@ const App = () => {
 
   // * State selectors
   const items = useAppSelector((state: RootState) => state.items.items);
-  const itemsLength = Object.keys(items).length;
+  // const itemsLength = Object.keys(items).length;
 
   const { pathname } = useLocation();
+  console.log(items);
 
   useEffect(() => {
     if (pathname === "/") dispatch(deleteItems());
@@ -38,7 +40,11 @@ const App = () => {
           </Col>
         </Row>
       </Header>
-      {itemsLength > 1 ? <SearchPage items={items} /> : <LandingPage />}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/api/items/" element={<SearchPage />} />
+        <Route path="/api/items/:id" element={<ItemPage />} />
+      </Routes>
     </Layout>
   );
 };

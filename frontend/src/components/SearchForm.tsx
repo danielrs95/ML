@@ -23,12 +23,12 @@ const SearchForm = () => {
   }, [dispatch, searchParams]);
 
   return (
-    <Link to={`/items/?search=${query}`}>
+    <Link to={`/api/items/?search=${query}`}>
       <Search
         placeholder="Nunca dejes de buscar"
         size="large"
         onSearch={searchHandler}
-        onClick={() => undefined}
+        // onClick={() => undefined}
       />
     </Link>
   );
