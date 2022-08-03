@@ -5,24 +5,21 @@ import iconShipping from "../components/ic_shipping.png";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { searchItems } from "../redux/itemsSlice";
 import LoadingSpin from "../components/LoadingSpin";
-// import { RootState } from "../store";
-
-// type SearchPageType = {
-//   items: any;
-// };
 
 const SearchPage = () => {
-  const [searchParams] = useSearchParams();
+  // * ========== Variables ==========
 
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const { Content } = Layout;
 
+  // * ========== State variables ==========
   const items = useAppSelector((state: any) => state.items.items);
   const itemsStatus = useAppSelector((state: any) => state.items.status);
   const itemsLength = Object.keys(items).length;
 
+  // * ========== UseEffects ==========
   useEffect(() => {
     const queryURL = searchParams.get("search");
     if (queryURL) dispatch(searchItems(queryURL));

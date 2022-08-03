@@ -4,24 +4,18 @@ import { Link, Route, Routes, useLocation } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import logo from "./components/Logo_ML.png";
 import LandingPage from "./pages/LandingPage";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { RootState } from "./store";
+import { useAppDispatch } from "./redux/hooks";
 import SearchPage from "./pages/SearchPage";
 import { deleteItems } from "./redux/itemsSlice";
 import ItemPage from "./pages/ItemPage";
 
 const App = () => {
-  // * Variables
+  // * ========== Variables ==========
   const { Header } = Layout;
   const dispatch = useAppDispatch();
-
-  // * State selectors
-  const items = useAppSelector((state: RootState) => state.items.items);
-  // const itemsLength = Object.keys(items).length;
-
   const { pathname } = useLocation();
-  console.log(items);
 
+  // * ========== UseEffects ==========
   useEffect(() => {
     if (pathname === "/") dispatch(deleteItems());
   }, [dispatch, pathname]);

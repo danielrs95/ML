@@ -34,7 +34,22 @@ export const itemSlice = createSlice({
           items: action.payload,
           status: "success",
         };
-      });
+      })
+
+      // * Cases when searching by id
+      .addCase(searchById.pending, (state: any) => {
+        state.status = "loading";
+      })
+      .addCase(
+        searchById.fulfilled,
+        (state: any, action: PayloadAction<any>) => {
+          return {
+            ...state,
+            items: action.payload,
+            status: "success",
+          };
+        }
+      );
   },
 });
 
@@ -42,6 +57,15 @@ export const searchItems = createAsyncThunk(
   "items/searchItems",
   async (query: string) => {
     const response = await fetch(`/api/items?q=${query}`);
+    const responseJson = await response.json();
+    return responseJson;
+  }
+);
+
+export const searchById = createAsyncThunk(
+  "items/searchById",
+  async (id: string) => {
+    const response = await fetch(`/api/items/${id}`);
     const responseJson = await response.json();
     return responseJson;
   }
