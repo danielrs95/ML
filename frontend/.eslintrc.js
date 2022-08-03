@@ -13,6 +13,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "airbnb",
+    "plugin:import/typescript",
     "plugin:prettier/recommended",
   ],
   parser: "@typescript-eslint/parser", // Uses babel-eslint transforms.
@@ -37,6 +38,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "react/function-component-definition": "off",
   },
   settings: {
     react: {

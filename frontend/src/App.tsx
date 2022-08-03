@@ -1,23 +1,23 @@
+import { Col, Layout, Row } from "antd";
 import React from "react";
+import SearchForm from "./components/SearchForm";
 
-function App() {
+const { Header, Content } = Layout;
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header style={{ background: "#FFe600" }}>
+        <Row justify="center" align="middle" style={{ height: "100%" }}>
+          <Col span={2}>Logo</Col>
+          <Col span={18}>
+            <SearchForm />
+          </Col>
+        </Row>
+      </Header>
+      <Content>Content</Content>
+    </Layout>
   );
-}
+};
 
 export default App;
