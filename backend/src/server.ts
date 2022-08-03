@@ -1,21 +1,25 @@
-import express from 'express'
+import express from "express";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 const PORT = 5000;
 
-app.get('/', async (_req, res) => {
+app.get("/api/items", async (req, res) => {
+  const { q } = req.query;
+  console.log(q);
   try {
-    const meliResponse = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=carmex')
-    const responseJson = await meliResponse.json()
-    res.json(responseJson)
+    const meliResponse = await fetch(
+      `https://api.mercadolibre.com/sites/MLA/search?q=${q}`
+    );
+    const responseJson = await meliResponse.json();
+    res.json(responseJson);
   } catch (error) {
-    throw error
+    throw error;
   }
-})
+});
 
 app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`)
-})
+  console.log(`Running on port ${PORT}`);
+});
