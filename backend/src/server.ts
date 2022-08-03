@@ -32,6 +32,7 @@ app.get("/api/items", async (req, res) => {
       },
       picture: result.thumbnail,
       condition: result.condition,
+      address: `${result.address.state_name} - ${result.address.city_name}`,
       free_shipping: result.shipping.free_shipping,
     }));
 
