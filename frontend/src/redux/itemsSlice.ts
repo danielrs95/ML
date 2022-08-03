@@ -3,12 +3,10 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ItemsState {
   items: [];
-  status: string;
 }
 
 const initialState: ItemsState = {
   items: [],
-  status: "idle",
 };
 
 export const itemSlice = createSlice({
@@ -21,7 +19,6 @@ export const itemSlice = createSlice({
       (state, action: PayloadAction<any>) => {
         return {
           ...state,
-          status: "done",
           items: action.payload,
         };
       }
@@ -29,11 +26,13 @@ export const itemSlice = createSlice({
   },
 });
 
-export const searchItems = createAsyncThunk("items/searchItems", async () => {
-  const response = await fetch("/api/items");
-  const responseJson = await response.json();
-  // console.log(responseJson);
-  return responseJson;
-});
+export const searchItems = createAsyncThunk(
+  "items/searchItems",
+  async (query: string) => {
+    const response = await fetch(`/api/items?q=${query}`);
+    const responseJson = await response.json();
+    return responseJson;
+  }
+);
 
 export default itemSlice.reducer;
