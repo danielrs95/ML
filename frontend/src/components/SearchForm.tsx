@@ -1,9 +1,8 @@
 import { Input } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { searchItems } from "../redux/itemsSlice";
-import "./SearchForm.css";
 
 const { Search } = Input;
 
@@ -12,9 +11,12 @@ const SearchForm = () => {
   const [query, setQuery] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const searchHandler = (value: string) => {
-    setQuery(value);
+    if (value) {
+      navigate(`/api/items/?search=${query}`);
+    }
   };
 
   useEffect(() => {
@@ -23,14 +25,13 @@ const SearchForm = () => {
   }, [dispatch, searchParams]);
 
   return (
-    <Link to={`/api/items/?search=${query}`}>
-      <Search
-        placeholder="Nunca dejes de buscar"
-        size="large"
-        onSearch={searchHandler}
-        // onClick={() => undefined}
-      />
-    </Link>
+    <Search
+      placeholder="Nunca dejes de buscar"
+      size="large"
+      allowClear
+      onSearch={searchHandler}
+      onChange={(e) => setQuery(e.target.value)}
+    />
   );
 };
 
