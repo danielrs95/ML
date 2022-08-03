@@ -38,7 +38,7 @@ const App = () => {
           </Col>
         </Row>
       </Header>
-      {itemsLength > 1 ? <SearchPage /> : <LandingPage />}
+      {itemsLength > 1 ? <SearchPage items={items} /> : <LandingPage />}
     </Layout>
   );
 };
