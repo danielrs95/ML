@@ -1,0 +1,39 @@
+.header {
+  background: #FFE600 !important;
+  height: 7vh !important;
+}
+
+.searchInput {
+  line-height: 0;
+  margin: 0 10px;
+}
+
+.content {
+  height: 93vh;
+}
+
+.menuStyle {
+  margin: 16px 0 !important;
+}
+
+.cardBodyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.cardBodyTitleContainer {
+  width: 100% !important;
+  margin: 0 2em;
+}
+
+.cardBodyTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardImg {
+  height: 180px !important;
+  /* height: auto; */
+}

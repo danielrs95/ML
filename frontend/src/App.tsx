@@ -8,7 +8,7 @@ import { useAppDispatch } from "./redux/hooks";
 import SearchPage from "./pages/SearchPage";
 import { deleteItems } from "./redux/itemsSlice";
 import ItemPage from "./pages/ItemPage";
-import "./App.module.css";
+import styles from "./styles/App.module.css";
 
 const App = () => {
   // * ========== Variables ==========
@@ -23,14 +23,14 @@ const App = () => {
 
   return (
     <Layout>
-      <Header className="header">
+      <Header className={styles.header}>
         <Row justify="space-around" align="middle">
           <Link to="/">
             <Col span={2}>
               <img src={logo} alt="logo" />
             </Col>
           </Link>
-          <Col span={18} style={{ lineHeight: "0", margin: "0 10px" }}>
+          <Col span={18} className={styles.searchInput}>
             <SearchForm />
           </Col>
         </Row>

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { Breadcrumb, Card, Col, Layout, List, Row } from "antd";
+import { Breadcrumb, Card, Col, Layout, List, Row, Typography } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import iconShipping from "../components/ic_shipping.png";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { searchItems } from "../redux/itemsSlice";
 import LoadingSpin from "../components/LoadingSpin";
+import styles from "../styles/App.module.css";
 
 const SearchPage = () => {
   // * ========== Variables ==========
-
+  const { Title, Paragraph } = Typography;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -27,9 +28,9 @@ const SearchPage = () => {
 
   return (
     <Content>
-      <Row justify="center" align="middle" style={{ height: "100%vh" }}>
+      <Row justify="center" align="middle">
         <Col span={20}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb className={styles.menuStyle}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
@@ -47,30 +48,24 @@ const SearchPage = () => {
                       style={{ padding: "16px" }}
                       onClick={() => navigate(`/api/items/${item.id}`)}
                     >
-                      <div style={{ display: "flex", flexDirection: "row" }}>
+                      <div className={styles.cardBodyContainer}>
                         <img
+                          className={styles.cardImg}
                           src={item.picture}
                           alt="thumbnail"
-                          style={{ width: "180px" }}
                         />
 
-                        <div style={{ width: "100%" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
-                            <h1 style={{ fontSize: "24px" }}>
-                              ${item.price.amount}
-                              {item.free_shipping ? (
+                        <div className={styles.cardBodyTitleContainer}>
+                          <div className={styles.cardBodyTitle}>
+                            <Title level={3}>
+                              ${item.price.amount}{" "}
+                              {item.free_shipping && (
                                 <img src={iconShipping} alt="icon" />
-                              ) : null}
-                            </h1>
-                            <span style={{ fontSize: "12px" }}>
+                              )}
+                            </Title>
+                            <Paragraph style={{ fontSize: "12px" }}>
                               {item.address}
-                            </span>
+                            </Paragraph>
                           </div>
                           <h4 style={{ fontSize: "18px" }}>{item.title}</h4>
                         </div>
