@@ -22,7 +22,15 @@ app.get("/api/items", async (req, res) => {
     );
     const responseJson = await response.json();
 
-    const items = responseJson.results.slice(0, 4).map((result: any) => ({
+    // * Iterate over the categories, string of arrays to get the 4 responses
+    const itemID = responseJson.results.slice(0, 4).map((result: any) => result.id);
+    const imagesUrl = await Promise.all(itemID.map(async (id: any) => {
+      const resp = await fetch(`https://api.mercadolibre.com/items/${id}`)
+      const respJson =  await resp.json()
+      return  respJson.pictures[0].url
+    }))
+
+    const items = responseJson.results.slice(0, 4).map((result: any, index: any) => ({
       id: result.id,
       title: result.title,
       price: {
@@ -30,13 +38,20 @@ app.get("/api/items", async (req, res) => {
         amount: result.price,
         decimals: getDecimals(result.price),
       },
-      picture: result.thumbnail,
+      picture: imagesUrl[index],
       condition: result.condition,
       address: `${result.address.state_name} - ${result.address.city_name}`,
       free_shipping: result.shipping.free_shipping,
     }));
 
-    const categories = responseJson.results.slice(0, 4).map((result: any) => result.category_id);
+    const categoriesID = responseJson.results.slice(0, 4).map((result: any) => result.category_id);
+
+    // * Iterate over the categories, string of arrays to get the 4 responses
+    const categories = await Promise.all(categoriesID.map(async (category: any) => {
+      const resp = await fetch(`https://api.mercadolibre.com/categories/${category}`)
+      const respJson =  await resp.json()
+      return  respJson.path_from_root
+    }))
 
     const data = {
       author: {
