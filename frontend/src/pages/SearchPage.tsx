@@ -30,6 +30,13 @@ const SearchPage = () => {
     if (queryURL) dispatch(searchItems(queryURL));
   }, [dispatch, searchParams]);
 
+  // * ========== Handlers ==========
+  const formatAsCurrency = (item: any) => {
+    const numberFormat1 = new Intl.NumberFormat(item.price.currency);
+
+    return numberFormat1.format(item.price.amount);
+  };
+
   return (
     <Content>
       <Row justify="center" align="middle">
@@ -49,6 +56,7 @@ const SearchPage = () => {
                 items.items.map((item: any) => (
                   <List.Item key={item.id}>
                     <Card
+                      key={item.id}
                       hoverable
                       style={{ padding: "16px" }}
                       onClick={() => navigate(`/api/items/${item.id}`)}
@@ -63,12 +71,15 @@ const SearchPage = () => {
                         <div className={styles.cardBodyTitleContainer}>
                           <div className={styles.cardBodyTitle}>
                             <Title level={3}>
-                              ${item.price.amount}{" "}
+                              $ {formatAsCurrency(item)}{" "}
                               {item.free_shipping && (
                                 <img src={iconShipping} alt="icon" />
                               )}
                             </Title>
-                            <Paragraph style={{ fontSize: "12px" }}>
+                            <Paragraph
+                              style={{ fontSize: "12px" }}
+                              type="secondary"
+                            >
                               {item.address}
                             </Paragraph>
                           </div>

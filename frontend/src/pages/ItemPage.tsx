@@ -3,16 +3,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ShopOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Breadcrumb, Button, Col, Layout, Row, Typography } from "antd";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import LoadingSpin from "../components/LoadingSpin";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { searchById } from "../redux/itemsSlice";
+import { searchById, searchItems } from "../redux/itemsSlice";
 import styles from "../styles/App.module.css";
 
 const ItemPage = () => {
   // * ========== Variables ==========
   const { Title, Paragraph } = Typography;
+  const [searchParams] = useSearchParams();
   const { Content } = Layout;
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -20,23 +21,41 @@ const ItemPage = () => {
   // * ========== State variables ==========
   const item = useAppSelector((state: any) => state.items.items.item);
   const itemsStatus = useAppSelector((state: any) => state.items.status);
-  const categories = useAppSelector((state: any) => {
-    if (state.items.item) return state.items.items.item.categoryResponse;
-  });
+
+  // * ========== Estados ==========
+  const [categories, setCategories] = useState([]);
 
   // * ========== UseEffects ==========
   useEffect(() => {
     if (id) dispatch(searchById(id));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    if (item) setCategories(item.categoryResponse);
+  }, [item]);
+
+  useEffect(() => {
+    const queryURL = searchParams.get("search");
+    if (queryURL) dispatch(searchItems(queryURL));
+  }, [dispatch, searchParams]);
+
+  // * ========== Handlers ==========
+  const formatAsCurrency = (itemInstance: any) => {
+    const numberFormat1 = new Intl.NumberFormat(itemInstance.price.amount);
+
+    return numberFormat1.format(itemInstance.price.amount);
+  };
+
   return (
-    <Content>
+    <Content className={styles.content}>
       <Row justify="center" align="middle">
         <Col span={20}>
           <Breadcrumb className={styles.menuStyle}>
             {categories &&
               categories.map((category: any) => (
-                <Breadcrumb.Item>{category.name}</Breadcrumb.Item>
+                <Breadcrumb.Item key={category.id}>
+                  {category.name}
+                </Breadcrumb.Item>
               ))}
           </Breadcrumb>
         </Col>
@@ -62,7 +81,7 @@ const ItemPage = () => {
                       {item.title}
                     </Title>
                     <Title level={1} className={styles.price}>
-                      ${item.price.amount}
+                      $ {formatAsCurrency(item)}
                     </Title>
                     <Button
                       size="large"
@@ -73,7 +92,11 @@ const ItemPage = () => {
                       Comprar
                     </Button>
                     <Title level={3}>Descripción del producto</Title>
-                    <Paragraph className={styles.description}>
+                    <Paragraph
+                      className={styles.description}
+                      type="secondary"
+                      ellipsis={{ expandable: false, rows: 10 }}
+                    >
                       {item.description}
                     </Paragraph>
                   </div>

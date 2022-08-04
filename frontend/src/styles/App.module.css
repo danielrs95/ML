@@ -9,7 +9,7 @@
 }
 
 .content {
-  height: 93vh;
+  height: 93vh !important;
 }
 
 .menuStyle {
@@ -34,8 +34,11 @@
 }
 
 .cardImg {
-  height: 180px !important;
-  width: 180px !important;
+  height: 180px ;
+  width: 180px ;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 /* Item Detail Styles */
@@ -45,12 +48,14 @@
   flex-direction: column;
   background-color: white;
   width: 100%;
+  padding: 32px;
 }
 
 .itemDetailImg {
-  height: 680px !important;
-  width: 680px !important;
+  height: 680px ;
+  width: 680px ;
   flex-shrink: 0;
+  object-fit: contain;
 }
 
 .itemImgTitleContainer {
@@ -76,5 +81,6 @@
 }
 
 .description {
- margin-right: 32px;
+  max-height: 50%;
+  margin-right: 32px;
 }

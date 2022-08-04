@@ -26,7 +26,7 @@ const App = () => {
       <Header className={styles.header}>
         <Row justify="space-around" align="middle">
           <Link to="/">
-            <Col span={2}>
+            <Col span={4}>
               <img src={logo} alt="logo" />
             </Col>
           </Link>
