@@ -35,5 +35,48 @@
 
 .cardImg {
   height: 180px !important;
-  /* height: auto; */
+}
+
+/* Item Detail Styles */
+
+.itemDetailContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+}
+
+.itemDetailImg {
+  height: 680px !important;
+  flex-shrink: 0;
+}
+
+.itemDetailInfo {
+  /* margin: 2em !important; */
+}
+
+.itemImgTitleContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sold {
+  margin: 0 !important;
+  margin-top: 32px !important;
+  font-size: 14px !important;
+}
+
+.title {
+  margin: 0 !important;
+  margin-top: 16px !important;
+  font-size: 24px !important;
+}
+
+.price {
+  margin: 32px 0 !important;
+  font-size: 46px !important;
+}
+
+.description {
+ margin-right: 32px;
 }
