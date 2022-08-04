@@ -33,7 +33,6 @@ const SearchPage = () => {
   // * ========== Handlers ==========
   const formatAsCurrency = (item: any) => {
     const numberFormat1 = new Intl.NumberFormat(item.price.currency);
-
     return numberFormat1.format(item.price.amount);
   };
 
@@ -53,6 +52,7 @@ const SearchPage = () => {
           ) : (
             <List itemLayout="horizontal" grid={{ column: 1 }}>
               {itemsLength > 1 &&
+                items?.items &&
                 items.items.map((item: any) => (
                   <List.Item key={item.id}>
                     <Card
