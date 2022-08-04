@@ -19,6 +19,9 @@ const ItemPage = () => {
   // * ========== State variables ==========
   const item = useAppSelector((state: any) => state.items.items.item);
   const itemsStatus = useAppSelector((state: any) => state.items.status);
+  const categories = useAppSelector(
+    (state: any) => state.items.items.item.categoryResponse
+  );
 
   // * ========== UseEffects ==========
   useEffect(() => {
@@ -30,9 +33,10 @@ const ItemPage = () => {
       <Row justify="center" align="middle">
         <Col span={20}>
           <Breadcrumb className={styles.menuStyle}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            {categories &&
+              categories.map((category: any) => (
+                <Breadcrumb.Item>{category.name}</Breadcrumb.Item>
+              ))}
           </Breadcrumb>
         </Col>
       </Row>

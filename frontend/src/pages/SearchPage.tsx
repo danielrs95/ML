@@ -20,6 +20,10 @@ const SearchPage = () => {
   const itemsStatus = useAppSelector((state: any) => state.items.status);
   const itemsLength = Object.keys(items).length;
 
+  const categories = useAppSelector(
+    (state: any) => state.items.items.categories
+  );
+
   // * ========== UseEffects ==========
   useEffect(() => {
     const queryURL = searchParams.get("search");
@@ -31,9 +35,10 @@ const SearchPage = () => {
       <Row justify="center" align="middle">
         <Col span={20}>
           <Breadcrumb className={styles.menuStyle}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            {categories &&
+              categories[0].map((category: any) => (
+                <Breadcrumb.Item>{category.name}</Breadcrumb.Item>
+              ))}
           </Breadcrumb>
 
           {itemsStatus === "loading" ? (

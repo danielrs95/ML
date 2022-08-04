@@ -79,6 +79,10 @@ app.get("/api/items/:id", async (req, res) => {
     const description = await fetch(`https://api.mercadolibre.com/items/${id}/description`);
     const descriptionJson = await description.json();
 
+    const category = await fetch(`https://api.mercadolibre.com/categories/${responseJson.category_id}`)
+    const categoryJson = await category.json()
+    const categoryResponse = categoryJson.path_from_root
+
     const data = {
       author: {
         name: "Daniel",
@@ -92,11 +96,12 @@ app.get("/api/items/:id", async (req, res) => {
           amount: responseJson.price,
           decimals: getDecimals(responseJson.price),
         },
-        picture: responseJson.thumbnail,
+        picture: responseJson.pictures[0].url,
         condition: responseJson.condition,
         free_shipping: responseJson.shipping.free_shipping,
         sold_quantity: responseJson.sold_quantity,
         description: descriptionJson.plain_text,
+        categoryResponse,
       },
     };
 
