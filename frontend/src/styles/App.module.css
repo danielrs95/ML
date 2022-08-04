@@ -35,6 +35,7 @@
 
 .cardImg {
   height: 180px !important;
+  width: 180px !important;
 }
 
 /* Item Detail Styles */
@@ -48,11 +49,8 @@
 
 .itemDetailImg {
   height: 680px !important;
+  width: 680px !important;
   flex-shrink: 0;
-}
-
-.itemDetailInfo {
-  /* margin: 2em !important; */
 }
 
 .itemImgTitleContainer {

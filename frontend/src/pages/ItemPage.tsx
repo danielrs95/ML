@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ShopOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -19,9 +20,9 @@ const ItemPage = () => {
   // * ========== State variables ==========
   const item = useAppSelector((state: any) => state.items.items.item);
   const itemsStatus = useAppSelector((state: any) => state.items.status);
-  const categories = useAppSelector(
-    (state: any) => state.items.items.item.categoryResponse
-  );
+  const categories = useAppSelector((state: any) => {
+    if (state.items.item) return state.items.items.item.categoryResponse;
+  });
 
   // * ========== UseEffects ==========
   useEffect(() => {
